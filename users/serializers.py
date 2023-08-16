@@ -20,7 +20,6 @@ class UserAuthSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
-        print(attrs)
         user = authenticate(**attrs)
         if user and user.is_active:
             return user

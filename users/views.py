@@ -1,3 +1,5 @@
+import os
+
 import requests
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -74,7 +76,12 @@ class TelegramView(GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        url = "https://api.example.com/data/"
+        text = request.query_params.get("text")
+        bot_token = os.getenv("BOT_TOKEN")
+        telegram_id = request.user.telegram_id
+
+        text = f"<b>{request.user.username}</b>, я получил от тебя сообщение:\n{text}"
+        url = f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={telegram_id}&text={text}&parse_mode=HTML"
         response = requests.get(url)
 
         if response.status_code == 200:
