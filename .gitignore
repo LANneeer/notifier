@@ -254,3 +254,8 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# static
+static/admin
+static/drf-yasg
+static/rest_framework
+static/rest_framework_swagger
